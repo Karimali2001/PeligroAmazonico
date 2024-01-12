@@ -1,11 +1,13 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-
   text-align: center;
+  
+  
 }
 body {
   margin: 0;
+  font-family: 'Poppins', sans-serif;
 }
 
 .logo {
@@ -54,7 +56,33 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
+  overflow-x: auto;
 }
 
+
+
+.home_title {
+  color: white;
+  font-size: 38px;
+  font-weight: 800;
+}
+
+button {
+  border-radius: 50px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  background-color: #65B741;
+  color: white;
+  width: 25%;
+  height: 50px;
+}
+button:hover {
+  border-color: #646cff;
+}
 
 

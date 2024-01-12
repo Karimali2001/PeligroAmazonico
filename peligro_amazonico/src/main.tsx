@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Home from './pages/Home'
 import HowToPlay from './pages/HowToPlay'
+import Players from './pages/Players'
 
 // Registrar rutas
 const router = createBrowserRouter([
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
   {
     path: '/comojugar',
     element: <HowToPlay />
+  },
+  {
+    path: '/jugadores',
+    element: <Players />
   },
 ])
 

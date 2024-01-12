@@ -13,6 +13,7 @@ const AppBar: React.FC = () => {
                 Cómo Jugar
             </a>
 
+
         </div>
     );
 };
