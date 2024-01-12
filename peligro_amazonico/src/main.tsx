@@ -1,15 +1,19 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Home from './pages/Home'
+import HowToPlay from './pages/HowToPlay'
 
 // Registrar rutas
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Home />
+  },
+  {
+    path: '/comojugar',
+    element: <HowToPlay />
   },
 ])
 
