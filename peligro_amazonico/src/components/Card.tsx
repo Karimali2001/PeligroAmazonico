@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 
+interface CardProps {
+    img: string;
+}
 
+const Card: React.FC<CardProps> = ({ img }) => {
+    const [isImageVisible, setIsImageVisible] = useState(false);
 
-const Card: React.FC = () => { 
+    const handleClick = () => {
+        setIsImageVisible(!isImageVisible);
+    };
+
     return (
-        <div
-            className={`bg-[#000000] card w-12 h-12`}
-             style={{ borderRadius: 10}}
-        >
+        <div onClick={handleClick} className={`w-20 h-20 ${isImageVisible ? '' : 'bg-black'}`} style={{borderRadius:'10px'}}>
+            {isImageVisible && <img src={img} alt="Imagen" style={{ width: '100%', height: '100%',  objectFit: 'cover' }} />}
         </div>
     );
 };

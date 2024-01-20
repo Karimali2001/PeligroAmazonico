@@ -7,6 +7,8 @@ import "../App.css"
 import Player from '../components/Player';
 import Card from '../components/Card';
 
+import jaguar from '../assets/game-imgs/jaguar.svg';
+
 const Game: React.FC = () => {
 
     const location = useLocation();
@@ -69,33 +71,31 @@ const Game: React.FC = () => {
                 </div>
 
                 <div className={`space-y-6 ${isSmallScreen ? 'mt-10' : ''}`}>
-
-
-                    <div className='flex flex-grow space-x-10 justify-center'>
-                        <Card />
-                        <Card />
-                        <Card />
-                        <Card />
+                    <div className='flex flex-grow space-x-6 justify-center'>
+                        <Card img={jaguar} />
+                        <Card img={jaguar} />
+                        <Card img={jaguar}/>
+                        <Card img={jaguar} />
                     </div>
 
-                    <div className='flex flex-grow space-x-10 justify-center' style={{ margin: '0 4' }}>
-                        <Card />
-                        <Card />
-                        <Card />
-                        <Card />
+                    <div className='flex flex-grow space-x-6 justify-center' style={{ margin: '0 4' }}>
+                        <Card img={jaguar}/>
+                        <Card img={jaguar}/>
+                        <Card img={jaguar}/>
+                        <Card img={jaguar}/>
                     </div>
-                    <div className='flex flex-grow space-x-10 justify-center' style={{ margin: '0 4' }}>
-                        <Card />
-                        <Card />
-                        <Card />
-                        <Card />
+                    <div className='flex flex-grow space-x-6 justify-center' style={{ margin: '0 4' }}>
+                        <Card img={jaguar}/>
+                        <Card img={jaguar}/>
+                        <Card img={jaguar}/>
+                        <Card img={jaguar}/>
                     </div>
 
-                    <div className='flex flex-grow space-x-10 justify-center' style={{ margin: '0 4' }}>
-                        <Card />
-                        <Card />
-                        <Card />
-                        <Card />
+                    <div className='flex flex-grow space-x-6 justify-center' style={{ margin: '0 4' }}>
+                        <Card img={jaguar}/>
+                        <Card img={jaguar} />
+                        <Card img={jaguar}/>
+                        <Card img={jaguar}/>
                     </div>
 
                 </div>
