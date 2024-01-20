@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import AppBar from '../components/AppBar';
 import "../App.css"
@@ -6,6 +7,14 @@ import Player from '../components/Player';
 import Card from '../components/Card';
 
 const Game: React.FC = () => {
+
+    const location = useLocation();
+
+    // The inputList passed from the Players component
+    const inputList = location.state?.inputList;
+
+    console.log(inputList);
+    
 
     const handleExit = () => {
         window.location.href = '/jugadores';

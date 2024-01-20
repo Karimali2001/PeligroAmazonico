@@ -10,7 +10,7 @@ type PlayerProps = {
 const Player: React.FC<PlayerProps> = ({ color, name, number }) => {
     return (
         <div className='text-center'>
-            <div className={`w-12 h-12 rounded-full flex justify-center items-center`} style={{backgroundColor: color}}>
+            <div className={`w-14 h-14 rounded-full flex justify-center items-center`} style={{backgroundColor: color}}>
                 <FaUser />
             </div>
             <p className='underline text-white'>{name}</p>

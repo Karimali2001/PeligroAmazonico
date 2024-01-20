@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import AppBar from '../components/AppBar';
 import "../App.css"
 import { FaPlus, FaMinus } from 'react-icons/fa';
@@ -8,8 +9,10 @@ const Players: React.FC = () => {
 
     const [players, setPlayers] = useState<number>(2); // number of players
 
-   
-    const bgColors = ["#34A2C5", "#34C554","#EC68E7", "#7BDCFA"]; //background colors for each player
+
+    const bgColors = ["#34A2C5", "#34C554", "#EC68E7", "#7BDCFA"]; //background colors for each player
+
+  
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
         const { name, value } = e.target;
@@ -17,10 +20,10 @@ const Players: React.FC = () => {
         list[index] = { ...list[index], [name]: value };
         setInputList(list);
     }
-    
-    
+
+
     const handleAddClick = () => {
-        if(players >= 4){
+        if (players >= 4) {
             alert(" Se permiten máximo 4 jugadores");
             return;
         }
@@ -39,11 +42,14 @@ const Players: React.FC = () => {
         setInputList(list);
     }
 
+
+
     const handleClickPlay = () => {
+        
         window.location.href = '/juego';
     }
-        
-    
+
+
 
     return (
         <div className='bg-[#FFB534]' style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%' }}>
@@ -84,12 +90,12 @@ const Players: React.FC = () => {
                                     className='rounded-full w-full border-2 border-gray-300 px-4 py-2 focus:outline-none focus:border-blue-500 text-white placeholder-white'
                                     value={x.playerName}
                                     onChange={e => handleInputChange(e, i)}
-                                    readOnly={false} 
+                                    readOnly={false}
                                 />
                             );
                         }
                         )}
-                        
+
                     </div>
 
                     <button onClick={handleClickPlay} className='principal-button mt-[10%]'>Jugar</button>
@@ -100,6 +106,6 @@ const Players: React.FC = () => {
 
         </div>
     );
-    };
+};
 
-    export default Players;
+export default Players;
