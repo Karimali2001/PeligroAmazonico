@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { FaUser } from 'react-icons/fa';
+import React, { useState, useEffect } from 'react';
 
 import AppBar from '../components/AppBar';
 import "../App.css"
 import Player from '../components/Player';
+import Card from '../components/Card';
 
 const Game: React.FC = () => {
 
@@ -11,35 +11,77 @@ const Game: React.FC = () => {
         window.location.href = '/jugadores';
     }
 
+    // Check if the screen is small (mobile) or large (desktop) RESPONSIVE
+    const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+    useEffect(() => {
+        const checkScreenSize = () => {
+            setIsSmallScreen(window.innerHeight < 1000);
+        };
+
+        // Check screen size on initial render
+        checkScreenSize();
+
+        // Check screen size whenever the window is resized
+        window.addEventListener('resize', checkScreenSize);
+
+        // Clean up event listener when component unmounts
+        return () => window.removeEventListener('resize', checkScreenSize);
+    }, []);
+
     return (
-        <div className='bg-[#FFB534]' style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%' }}>
+        <div className='bg-[#FFB534]' style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', overflow: 'auto' }}>
 
             <AppBar />
+
 
             <div className='m-3 relative h-full'>
 
                 <a onClick={handleExit} className='text-white underline text-xl'> {"<"} Salir</a>
 
-                <h1 className='title text-center'>¡Turno de Karim!</h1>
+                <h1 className={`title text-center ${isSmallScreen ? 'mt-6' : ''}`}>¡Turno de Karim!</h1>
 
-                <div className='flex'>
+                <div className={`flex ${isSmallScreen ? 'mt-6' : ''}`}>
                     <Player color='blue' name='Karim' number={0} />
-                    <div className='flex flex-grow justify-end'>
+                    <div className='flex flex-grow justify-end'> 
                         <Player color='blue' name='Oriana' number={0} />
                     </div>
                 </div>
 
-                <div className='flex flex-grow' style={{margin:'0 4'}}>
-                    <div className='h-12 w-12 bg-[#000000]' style={{ borderRadius: 10 }}>
+                <div className={`space-y-6 ${isSmallScreen ? 'mt-10' : ''}`}>
+
+
+                    <div className='flex flex-grow space-x-10 justify-center'>
+                        <Card />
+                        <Card />
+                        <Card />
+                        <Card />
                     </div>
-                    <div className='h-12 w-12 bg-[#000000]' style={{ borderRadius: 10 }}>
+
+                    <div className='flex flex-grow space-x-10 justify-center' style={{ margin: '0 4' }}>
+                        <Card />
+                        <Card />
+                        <Card />
+                        <Card />
                     </div>
-                    <div className='h-12 w-12 bg-[#000000]' style={{ borderRadius: 10 }}></div>
-                    <div className='h-12 w-12 bg-[#000000]' style={{ borderRadius: 10 }}></div>
+                    <div className='flex flex-grow space-x-10 justify-center' style={{ margin: '0 4' }}>
+                        <Card />
+                        <Card />
+                        <Card />
+                        <Card />
+                    </div>
+
+                    <div className='flex flex-grow space-x-10 justify-center' style={{ margin: '0 4' }}>
+                        <Card />
+                        <Card />
+                        <Card />
+                        <Card />
+                    </div>
+
                 </div>
 
 
-                <div className='flex'>
+                <div className={`flex ${isSmallScreen ? 'mt-10' : ''}`}>
                     <Player color='blue' name='Valeria' number={0} />
                     <div className='flex flex-grow justify-end'>
                         <Player color='blue' name='Gabriel' number={0} />
