@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { createBrowserHistory } from 'history';
 import AppBar from '../components/AppBar';
 import "../App.css"
 import { FaPlus, FaMinus } from 'react-icons/fa';
@@ -12,7 +12,9 @@ const Players: React.FC = () => {
 
     const bgColors = ["#34A2C5", "#34C554", "#EC68E7", "#7BDCFA"]; //background colors for each player
 
-  
+    const history = createBrowserHistory(); //to pass elements between pages
+
+
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
         const { name, value } = e.target;
@@ -22,6 +24,7 @@ const Players: React.FC = () => {
     }
 
 
+    //adds a player
     const handleAddClick = () => {
         if (players >= 4) {
             alert(" Se permiten máximo 4 jugadores");
@@ -31,6 +34,7 @@ const Players: React.FC = () => {
         setInputList([...inputList, { playerName: "" }]);
     }
 
+    //removes a player
     const handleRemoveClick = () => {
         if (players <= 2) {
             alert("Se permiten mínimo 2 jugadores");
@@ -38,15 +42,17 @@ const Players: React.FC = () => {
         }
         setPlayers(players - 1);
         const list: any = [...inputList];
-        list.pop(); // Remove the last element from the array
+        list.pop();
         setInputList(list);
     }
 
 
 
     const handleClickPlay = () => {
-        
-        window.location.href = '/juego';
+
+        // Pass the inputList as state to the '/juego' route
+        history.push('/juego', { inputList });
+        window.location.reload();
     }
 
 
@@ -109,3 +115,4 @@ const Players: React.FC = () => {
 };
 
 export default Players;
+

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
 
 import AppBar from '../components/AppBar';
 import "../App.css"
@@ -10,14 +11,20 @@ const Game: React.FC = () => {
 
     const location = useLocation();
 
-    // The inputList passed from the Players component
-    const inputList = location.state?.inputList;
+    const history = createBrowserHistory(); //to pass elements between pages
 
-    console.log(inputList);
-    
+    // The inputList passed from the Players component
+    const playersList = location.state && location.state.inputList ? location.state.inputList : [];
+
+    console.log(playersList);
+
+    const playersLength = playersList.length;
+
+
 
     const handleExit = () => {
-        window.location.href = '/jugadores';
+        history.push('/jugadores');
+        window.location.reload();
     }
 
     // Check if the screen is small (mobile) or large (desktop) RESPONSIVE
@@ -39,7 +46,7 @@ const Game: React.FC = () => {
     }, []);
 
 
-    const bgColors = ["#34A2C5", "#34C554","#EC68E7", "#7BDCFA"]; //background colors for each player
+    const bgColors = ["#34A2C5", "#34C554", "#EC68E7", "#7BDCFA"]; //background colors for each player
 
 
     return (
@@ -55,9 +62,9 @@ const Game: React.FC = () => {
                 <h1 className={`title text-center ${isSmallScreen ? 'mt-6' : ''}`}>¡Turno de Karim!</h1>
 
                 <div className={`flex ${isSmallScreen ? 'mt-6' : ''}`}>
-                    <Player color={bgColors[0]} name='Karim' number={0} />
-                    <div className='flex flex-grow justify-end'> 
-                        <Player color={bgColors[1]} name='Oriana' number={0} />
+                    <Player color={bgColors[0]} name={playersList[0].playerName} number={0} />
+                    <div className='flex flex-grow justify-end'>
+                        <Player color={bgColors[1]} name={playersList[1].playerName} number={0} />
                     </div>
                 </div>
 
@@ -95,10 +102,15 @@ const Game: React.FC = () => {
 
 
                 <div className={`flex ${isSmallScreen ? 'mt-10' : ''}`}>
-                    <Player color={bgColors[2]} name='Valeria' number={0} />
-                    <div className='flex flex-grow justify-end'>
-                        <Player color={bgColors[3]} name='Gabriel' number={0} />
-                    </div>
+                    {playersList.length >= 3 && (
+                        <Player color={bgColors[2]} name={playersList[2].playerName} number={0} />
+                    )}
+                    {playersList.length >= 4 && (
+                        <div className='flex flex-grow justify-end'>
+                            <Player color={bgColors[3]} name={playersList[3].playerName} number={0} />
+                        </div>
+                    )}
+
                 </div>
 
             </div>
