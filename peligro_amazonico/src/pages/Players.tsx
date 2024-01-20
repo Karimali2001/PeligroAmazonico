@@ -40,7 +40,7 @@ const Players: React.FC = () => {
     }
 
     const handleClickPlay = () => {
-        console.log(inputList);
+        window.location.href = '/juego';
     }
         
     
