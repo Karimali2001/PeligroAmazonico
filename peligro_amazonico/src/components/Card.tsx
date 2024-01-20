@@ -1,10 +1,12 @@
 import React from 'react';
 
-const Card: React.FC<Props> = () => {
+
+
+const Card: React.FC = () => { 
     return (
         <div
-            className={`h-12 w-12 bg-[#000000] card`}
-             style={{ borderRadius: 10 }}
+            className={`bg-[#000000] card w-12 h-12`}
+             style={{ borderRadius: 10}}
         >
         </div>
     );

@@ -29,6 +29,10 @@ const Game: React.FC = () => {
         return () => window.removeEventListener('resize', checkScreenSize);
     }, []);
 
+
+    const bgColors = ["#34A2C5", "#34C554","#EC68E7", "#7BDCFA"]; //background colors for each player
+
+
     return (
         <div className='bg-[#FFB534]' style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', overflow: 'auto' }}>
 
@@ -42,9 +46,9 @@ const Game: React.FC = () => {
                 <h1 className={`title text-center ${isSmallScreen ? 'mt-6' : ''}`}>¡Turno de Karim!</h1>
 
                 <div className={`flex ${isSmallScreen ? 'mt-6' : ''}`}>
-                    <Player color='blue' name='Karim' number={0} />
+                    <Player color={bgColors[0]} name='Karim' number={0} />
                     <div className='flex flex-grow justify-end'> 
-                        <Player color='blue' name='Oriana' number={0} />
+                        <Player color={bgColors[1]} name='Oriana' number={0} />
                     </div>
                 </div>
 
@@ -82,9 +86,9 @@ const Game: React.FC = () => {
 
 
                 <div className={`flex ${isSmallScreen ? 'mt-10' : ''}`}>
-                    <Player color='blue' name='Valeria' number={0} />
+                    <Player color={bgColors[2]} name='Valeria' number={0} />
                     <div className='flex flex-grow justify-end'>
-                        <Player color='blue' name='Gabriel' number={0} />
+                        <Player color={bgColors[3]} name='Gabriel' number={0} />
                     </div>
                 </div>
 
