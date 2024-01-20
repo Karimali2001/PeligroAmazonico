@@ -46,19 +46,18 @@ const Players: React.FC = () => {
     
 
     return (
-        <div className='bg-[#FFB534]' style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
+        <div className='bg-[#FFB534]' style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%' }}>
 
             <AppBar />
-
-            <div className='m-3'>
+            <div className='m-3 relative h-full'>
 
                 <h1 className='title'>Ingrese los jugadores</h1>
 
-                <div className='flex items-center '>
+                <div className='flex items-center mt-6'>
 
-                    <p className='font-extrabold size text-xl'>Jugadores</p>
+                    <h2 className='font-extrabold text-2xl'>Jugadores</h2>
 
-                    <div className='flex-grow flex justify-end'>
+                    <div className='flex-grow flex justify-end space-x-2'>
 
                         <button onClick={handleRemoveClick} className='rounded-full bg-[#C70000] text-white p-2 w-10 h-10 border-4 hover:border-[#C70000]'>
                             <FaMinus />
@@ -72,7 +71,7 @@ const Players: React.FC = () => {
                 </div>
 
 
-                <div className='flex flex-col items-center mt-3'>
+                <div className='flex flex-col items-center mt-3 min-h-screen'>
 
                     <div className='w-full space-y-4'>
                         {inputList.map((x, i) => {
@@ -85,14 +84,15 @@ const Players: React.FC = () => {
                                     className='rounded-full w-full border-2 border-gray-300 px-4 py-2 focus:outline-none focus:border-blue-500 text-white placeholder-white'
                                     value={x.playerName}
                                     onChange={e => handleInputChange(e, i)}
-                                    readOnly={false} // Set readOnly to false to make the input editable
+                                    readOnly={false} 
                                 />
                             );
                         }
                         )}
+                        
                     </div>
 
-                    <button onClick={handleClickPlay} className='principal-button'>Jugar</button>
+                    <button onClick={handleClickPlay} className='principal-button mt-[10%]'>Jugar</button>
 
                 </div>
 
