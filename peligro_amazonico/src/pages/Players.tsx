@@ -28,16 +28,21 @@ const Players: React.FC = () => {
         setInputList([...inputList, { playerName: "" }]);
     }
 
-    const handleRemoveClick = (index: number) => {
-        if(players <= 2){
-            alert(" Se permiten mínimo 2 jugadores");
+    const handleRemoveClick = () => {
+        if (players <= 2) {
+            alert("Se permiten mínimo 2 jugadores");
             return;
         }
         setPlayers(players - 1);
         const list: any = [...inputList];
-        list.splice(index, 1);
+        list.pop(); // Remove the last element from the array
         setInputList(list);
     }
+
+    const handleClickPlay = () => {
+        console.log(inputList);
+    }
+        
     
 
     return (
@@ -75,7 +80,7 @@ const Players: React.FC = () => {
                                 <input
                                     key={i}
                                     name='playerName'
-                                    placeholder='Ingrese el nombre del jugador'
+                                    placeholder={`Ingrese el nombre del jugador ${i + 1}`}
                                     style={{ backgroundColor: bgColors[i] }}
                                     className='rounded-full w-full border-2 border-gray-300 px-4 py-2 focus:outline-none focus:border-blue-500 text-white placeholder-white'
                                     value={x.playerName}
@@ -87,7 +92,7 @@ const Players: React.FC = () => {
                         )}
                     </div>
 
-                    <button className='principal-button'>Jugar</button>
+                    <button onClick={handleClickPlay} className='principal-button'>Jugar</button>
 
                 </div>
 
