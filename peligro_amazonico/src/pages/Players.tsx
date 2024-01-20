@@ -4,27 +4,41 @@ import "../App.css"
 import { FaPlus, FaMinus } from 'react-icons/fa';
 
 const Players: React.FC = () => {
-    const [inputList, setInputList] = useState([{ playerName: "" }]); //saves the players names of inputs
+    const [inputList, setInputList] = useState([{ playerName: "" }, { playerName: "" }]);
+
+    const [players, setPlayers] = useState<number>(2); // number of players
+
    
     const bgColors = ["#34A2C5", "#34C554","#EC68E7", "#7BDCFA"]; //background colors for each player
 
-    const handleInputChange = (e: any, index: number) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
         const { name, value } = e.target;
         const list: any = [...inputList];
-        list[index][name] = value;
+        list[index] = { ...list[index], [name]: value };
         setInputList(list);
     }
-
-
+    
+    
     const handleAddClick = () => {
+        if(players >= 4){
+            alert(" Se permiten máximo 4 jugadores");
+            return;
+        }
+        setPlayers(players + 1);
         setInputList([...inputList, { playerName: "" }]);
     }
 
     const handleRemoveClick = (index: number) => {
+        if(players <= 2){
+            alert(" Se permiten mínimo 2 jugadores");
+            return;
+        }
+        setPlayers(players - 1);
         const list: any = [...inputList];
         list.splice(index, 1);
         setInputList(list);
     }
+    
 
     return (
         <div className='bg-[#FFB534]' style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
@@ -58,10 +72,15 @@ const Players: React.FC = () => {
                     <div className='w-full space-y-4'>
                         {inputList.map((x, i) => {
                             return (
-                                <input placeholder='Ingrese el nombre del jugador'
-                                    className='rounded-full w-full border-2 border-gray-300 px-4 py-2 focus:outline-none focus:border-blue-500 bg-[#34A2C5] text-white placeholder-white'
+                                <input
+                                    key={i}
+                                    name='playerName'
+                                    placeholder='Ingrese el nombre del jugador'
+                                    style={{ backgroundColor: bgColors[i] }}
+                                    className='rounded-full w-full border-2 border-gray-300 px-4 py-2 focus:outline-none focus:border-blue-500 text-white placeholder-white'
                                     value={x.playerName}
                                     onChange={e => handleInputChange(e, i)}
+                                    readOnly={false} // Set readOnly to false to make the input editable
                                 />
                             );
                         }
@@ -76,6 +95,6 @@ const Players: React.FC = () => {
 
         </div>
     );
-};
+    };
 
-export default Players;
+    export default Players;
