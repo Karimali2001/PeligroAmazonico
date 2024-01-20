@@ -23,8 +23,27 @@ const Game: React.FC = () => {
                 <h1 className='title text-center'>¡Turno de Karim!</h1>
 
                 <div className='flex'>
-                    <Player color='blue' name='Karim' number={1} />
+                    <Player color='blue' name='Karim' number={0} />
+                    <div className='flex flex-grow justify-end'>
+                        <Player color='blue' name='Oriana' number={0} />
+                    </div>
+                </div>
 
+                <div className='flex flex-grow' style={{margin:'0 4'}}>
+                    <div className='h-12 w-12 bg-[#000000]' style={{ borderRadius: 10 }}>
+                    </div>
+                    <div className='h-12 w-12 bg-[#000000]' style={{ borderRadius: 10 }}>
+                    </div>
+                    <div className='h-12 w-12 bg-[#000000]' style={{ borderRadius: 10 }}></div>
+                    <div className='h-12 w-12 bg-[#000000]' style={{ borderRadius: 10 }}></div>
+                </div>
+
+
+                <div className='flex'>
+                    <Player color='blue' name='Valeria' number={0} />
+                    <div className='flex flex-grow justify-end'>
+                        <Player color='blue' name='Gabriel' number={0} />
+                    </div>
                 </div>
 
             </div>
