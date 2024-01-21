@@ -21,49 +21,31 @@ const Game: React.FC = () => {
 
     const finalImgs = location.state && location.state.finalImgs ? location.state.finalImgs : [];
 
-    console.log(finalImgs);
-    
 
-    // State for the currently flipped cards and the found pairs
-    const [flippedCards, setFlippedCards] = useState<string[]>([]);
-    const [foundPairs, setFoundPairs] = useState<number[]>([]);
+
+    // State for the currently flipped cards and the erased Cards
+    const [flippedCards, setFlippedCards] = useState<number[]>([]);
     const [erasedCards, setErasedCards] = useState<number[]>([]);
 
-    const handleCardClick = (name: string, index:number) => {
+    const handleCardClick = (index: number) => {
 
-        
+        setFlippedCards(prevFlippedCards => [...prevFlippedCards, index]);
 
-        setFlippedCards(prevFlippedCards => [...prevFlippedCards, name]);
-
-        setErasedCards(prevErasedCards => [...prevErasedCards,index]);
-
-
-
-
-        // // console.log("shramit");
-        // // console.log(flippedCards);
-
-        // // If two cards have been flipped, check for a match
-        // if (flippedCards.length === 2) {
-        //     const [card1Index, card2Index] = flippedCards;
-        //     const card1 = finalImgs[card1Index];
-        //     const card2 = finalImgs[card2Index];
-
-        //     if (card1.name === card2.name) {
-
-        //         // If the cards match, add their indices to the found pairs
-        //         setFoundPairs((prev) => [...prev, card1Index, card2Index]);
-        //     }
-
-
-
-        //     // Either way, reset the flipped cards after a short delay
-        //     setTimeout(() => setFlippedCards([]), 1000);
-        // }
     };
 
     //to use the updated version of flippedCards
     useEffect(() => {
+
+        if (flippedCards.length == 2) {
+            // Either way, reset the flipped cards after a short delay
+    
+
+            if (finalImgs[flippedCards[0]].name == finalImgs[flippedCards[1]].name) {
+
+                setErasedCards(prevErasedCards => [...prevErasedCards, flippedCards[0], flippedCards[1]]);
+            }
+            setTimeout(() => setFlippedCards([]), 3000);
+        }
 
     }, [flippedCards]);
 
@@ -123,7 +105,7 @@ const Game: React.FC = () => {
 
                             {finalImgs.slice(i * 4, i * 4 + 4).map((img: any, j: number) => (
 
-                                <Card key={j} img={img.path} name={img.name} index={i * 4 + j} erasedCards={erasedCards} onClick={() => handleCardClick(img.name, i * 4 + j)} />
+                                <Card key={j} img={img.path} name={img.name} index={i * 4 + j} erasedCards={erasedCards} flippedCards={flippedCards} onClick={() => handleCardClick(i * 4 + j)} />
 
                             ))}
 
