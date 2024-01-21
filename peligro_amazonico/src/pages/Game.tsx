@@ -21,15 +21,27 @@ const Game: React.FC = () => {
 
     const finalImgs = location.state && location.state.finalImgs ? location.state.finalImgs : [];
 
+    console.log(finalImgs);
+    
+
     // State for the currently flipped cards and the found pairs
-    const [flippedCards, setFlippedCards] = useState<number[]>([]);
+    const [flippedCards, setFlippedCards] = useState<string[]>([]);
     const [foundPairs, setFoundPairs] = useState<number[]>([]);
+    const [erasedCards, setErasedCards] = useState<number[]>([]);
 
-    const handleCardClick = (index: number) => {
+    const handleCardClick = (name: string, index:number) => {
+
+        
+
+        setFlippedCards(prevFlippedCards => [...prevFlippedCards, name]);
+
+        setErasedCards(prevErasedCards => [...prevErasedCards,index]);
 
 
 
-        // setFlippedCards((prev) => [...prev, index]);
+
+        // // console.log("shramit");
+        // // console.log(flippedCards);
 
         // // If two cards have been flipped, check for a match
         // if (flippedCards.length === 2) {
@@ -38,6 +50,7 @@ const Game: React.FC = () => {
         //     const card2 = finalImgs[card2Index];
 
         //     if (card1.name === card2.name) {
+
         //         // If the cards match, add their indices to the found pairs
         //         setFoundPairs((prev) => [...prev, card1Index, card2Index]);
         //     }
@@ -48,6 +61,11 @@ const Game: React.FC = () => {
         //     setTimeout(() => setFlippedCards([]), 1000);
         // }
     };
+
+    //to use the updated version of flippedCards
+    useEffect(() => {
+
+    }, [flippedCards]);
 
     const handleExit = () => {
         history.push('/jugadores');
@@ -103,9 +121,9 @@ const Game: React.FC = () => {
 
                         <div key={i} className='flex flex-grow space-x-6 justify-center' style={{ margin: '0 4' }}>
 
-                            {finalImgs.slice(i * 4, i * 4 + 4).map((img, j) => (
+                            {finalImgs.slice(i * 4, i * 4 + 4).map((img: any, j: number) => (
 
-                                <Card key={j} img={img.path} name={img.name} onClick={() => handleCardClick(j)} />
+                                <Card key={j} img={img.path} name={img.name} index={i * 4 + j} erasedCards={erasedCards} onClick={() => handleCardClick(img.name, i * 4 + j)} />
 
                             ))}
 
@@ -114,6 +132,7 @@ const Game: React.FC = () => {
                     ))}
 
                 </div>
+
 
 
                 <div className={`flex ${isSmallScreen ? 'mt-10' : ''}`}>
