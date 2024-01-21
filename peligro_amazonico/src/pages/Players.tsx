@@ -3,6 +3,7 @@ import { createBrowserHistory } from 'history';
 import AppBar from '../components/AppBar';
 import "../App.css"
 import { FaPlus, FaMinus } from 'react-icons/fa';
+import { images as imgs } from './images';
 
 const Players: React.FC = () => {
     const [inputList, setInputList] = useState([{ playerName: "" }, { playerName: "" }]);
@@ -14,6 +15,19 @@ const Players: React.FC = () => {
 
     const history = createBrowserHistory(); //to pass elements between pages
 
+    // Step 1: Shuffle the imgs array
+    let shuffledImgs = [...imgs].sort(() => Math.random() - 0.5);
+
+    // Step 2: Slice the first 8 elements
+    let slicedImgs = shuffledImgs.slice(0, 8);
+
+    // Step 3: Duplicate the sliced array
+    let duplicatedImgs = [...slicedImgs, ...slicedImgs];
+
+    // Step 4: Shuffle the array of 16 elements
+    let finalImgs = duplicatedImgs.sort(() => Math.random() - 0.5);
+
+    
 
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
@@ -51,7 +65,7 @@ const Players: React.FC = () => {
     const handleClickPlay = () => {
 
         // Pass the inputList as state to the '/juego' route
-        history.push('/juego', { inputList });
+        history.push('/juego', { inputList, finalImgs });
         window.location.reload();
     }
 

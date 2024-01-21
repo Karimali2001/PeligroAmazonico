@@ -6,33 +6,48 @@ import AppBar from '../components/AppBar';
 import "../App.css"
 import Player from '../components/Player';
 import Card from '../components/Card';
-import { images as imgs } from './images';
 
 const Game: React.FC = () => {
 
-    // Step 1: Shuffle the imgs array
-    let shuffledImgs = [...imgs].sort(() => Math.random() - 0.5);
-
-    // Step 2: Slice the first 8 elements
-    let slicedImgs = shuffledImgs.slice(0, 8);
-
-    // Step 3: Duplicate the sliced array
-    let duplicatedImgs = [...slicedImgs, ...slicedImgs];
-
-    // Step 4: Shuffle the array of 16 elements
-    let finalImgs = duplicatedImgs.sort(() => Math.random() - 0.5);
 
 
-
+    // Get the players list from the previous page
     const location = useLocation();
 
-    const history = createBrowserHistory(); //to pass elements between pages
+    const history = createBrowserHistory(); // To redirect to another page
 
     // The inputList passed from the Players component
     const playersList = location.state && location.state.inputList ? location.state.inputList : [];
 
-    const playersLength = playersList.length;
+    const finalImgs = location.state && location.state.finalImgs ? location.state.finalImgs : [];
 
+    // State for the currently flipped cards and the found pairs
+    const [flippedCards, setFlippedCards] = useState<number[]>([]);
+    const [foundPairs, setFoundPairs] = useState<number[]>([]);
+
+    const handleCardClick = (index: number) => {
+
+
+
+        // setFlippedCards((prev) => [...prev, index]);
+
+        // // If two cards have been flipped, check for a match
+        // if (flippedCards.length === 2) {
+        //     const [card1Index, card2Index] = flippedCards;
+        //     const card1 = finalImgs[card1Index];
+        //     const card2 = finalImgs[card2Index];
+
+        //     if (card1.name === card2.name) {
+        //         // If the cards match, add their indices to the found pairs
+        //         setFoundPairs((prev) => [...prev, card1Index, card2Index]);
+        //     }
+
+
+
+        //     // Either way, reset the flipped cards after a short delay
+        //     setTimeout(() => setFlippedCards([]), 1000);
+        // }
+    };
 
     const handleExit = () => {
         history.push('/jugadores');
@@ -90,7 +105,7 @@ const Game: React.FC = () => {
 
                             {finalImgs.slice(i * 4, i * 4 + 4).map((img, j) => (
 
-                                <Card key={j} img={img.path} name={img.name} />
+                                <Card key={j} img={img.path} name={img.name} onClick={() => handleCardClick(j)} />
 
                             ))}
 

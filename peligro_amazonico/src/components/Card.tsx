@@ -3,9 +3,11 @@ import React, { useState } from 'react';
 interface CardProps {
     img: string;
     name: string;
+    onClick: (index: number) => void; 
+    key: number; 
 }
 
-const Card: React.FC<CardProps> = ({ img, name }) => {
+const Card: React.FC<CardProps> = ({ img, name, onClick, key }) => {
     const [isImageVisible, setIsImageVisible] = useState(false);
 
     const handleClick = () => {
@@ -13,7 +15,7 @@ const Card: React.FC<CardProps> = ({ img, name }) => {
         if (!isImageVisible) {
             window.responsiveVoice.speak(name); //it will speak the name of the specie
         }
-
+        onClick(key);
     };
 
     return (
