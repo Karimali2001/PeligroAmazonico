@@ -58,14 +58,31 @@ const Game: React.FC = () => {
 
 
             if (finalImgs[flippedCards[0]].name == finalImgs[flippedCards[1]].name) {
-                setTimeout(() => setErasedCards(prevErasedCards => [...prevErasedCards, flippedCards[0], flippedCards[1]]), 2000);
-                
+                setTimeout(() => setErasedCards(prevErasedCards => [...prevErasedCards, flippedCards[0], flippedCards[1]]), 3000);
+                // Increase the score of the first player by 1
+                setPlayers((prevPlayers: any[]) =>
+                    prevPlayers.map((player: { score: number; }, index: number) =>
+                        index === playerTurn ? { ...player, score: player.score + 1 } : player
+                    )
+                );
+
+            } else {
+
+                setTimeout(() => {
+                    setPlayerTurn(playerTurn + 1);
+                    //reset to 0 (first player)
+                    if ((playerTurn + 1) >= players.length)
+                        setPlayerTurn(0);
+                    
+                }, 2000);
+
+
             }
 
             setTimeout(() => {
                 setFlippedCards([]);
                 setIsTimeoutActive(false);
-            }, 2000);
+            }, 3000);
         }
 
     }, [flippedCards]);
