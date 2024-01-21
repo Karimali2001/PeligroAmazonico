@@ -6,11 +6,23 @@ import AppBar from '../components/AppBar';
 import "../App.css"
 import Player from '../components/Player';
 import Card from '../components/Card';
-
-import jaguar from '../assets/game-imgs/jaguar.svg';
-import {images as imgs} from './images';
+import { images as imgs } from './images';
 
 const Game: React.FC = () => {
+
+    // Step 1: Shuffle the imgs array
+    let shuffledImgs = [...imgs].sort(() => Math.random() - 0.5);
+
+    // Step 2: Slice the first 8 elements
+    let slicedImgs = shuffledImgs.slice(0, 8);
+
+    // Step 3: Duplicate the sliced array
+    let duplicatedImgs = [...slicedImgs, ...slicedImgs];
+
+    // Step 4: Shuffle the array of 16 elements
+    let finalImgs = duplicatedImgs.sort(() => Math.random() - 0.5);
+
+
 
     const location = useLocation();
 
@@ -19,11 +31,7 @@ const Game: React.FC = () => {
     // The inputList passed from the Players component
     const playersList = location.state && location.state.inputList ? location.state.inputList : [];
 
-    console.log(imgs[9].path);
-
     const playersLength = playersList.length;
-
-    
 
 
     const handleExit = () => {
@@ -72,33 +80,23 @@ const Game: React.FC = () => {
                     </div>
                 </div>
 
+
+
                 <div className={`space-y-6 ${isSmallScreen ? 'mt-10' : ''}`}>
-                    <div className='flex flex-grow space-x-6 justify-center'>
-                        <Card img={jaguar} />
-                        <Card img={imgs[9].path} />
-                        <Card img={jaguar}/>
-                        <Card img={jaguar} />
-                    </div>
 
-                    <div className='flex flex-grow space-x-6 justify-center' style={{ margin: '0 4' }}>
-                        <Card img={jaguar}/>
-                        <Card img={jaguar}/>
-                        <Card img={imgs[0].path}/>
-                        <Card img={jaguar}/>
-                    </div>
-                    <div className='flex flex-grow space-x-6 justify-center' style={{ margin: '0 4' }}>
-                        <Card img={jaguar}/>
-                        <Card img={jaguar}/>
-                        <Card img={jaguar}/>
-                        <Card img={jaguar}/>
-                    </div>
+                    {[...Array(Math.ceil(finalImgs.length / 4))].map((_, i) => (
 
-                    <div className='flex flex-grow space-x-6 justify-center' style={{ margin: '0 4' }}>
-                        <Card img={jaguar}/>
-                        <Card img={jaguar} />
-                        <Card img={jaguar}/>
-                        <Card img={jaguar}/>
-                    </div>
+                        <div key={i} className='flex flex-grow space-x-6 justify-center' style={{ margin: '0 4' }}>
+
+                            {finalImgs.slice(i * 4, i * 4 + 4).map((img, j) => (
+
+                                <Card key={j} img={img.path} name={img.name} />
+
+                            ))}
+
+                        </div>
+
+                    ))}
 
                 </div>
 
