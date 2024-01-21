@@ -7,8 +7,12 @@ import "../App.css"
 import Player from '../components/Player';
 import Card from '../components/Card';
 
-const Game: React.FC = () => {
+type Player = {
+    name: string;
+    score: number;
+};
 
+const Game: React.FC = () => {
 
 
     // Get the players list from the previous page
@@ -23,28 +27,44 @@ const Game: React.FC = () => {
 
     const [playerTurn, setPlayerTurn] = useState(0); //the player turn
 
+    // Declare players state here
+    const [players, setPlayers] = useState(
+        playersList.map((player: any) => ({ name: player.playerName, score: 0 }))
+    );
+    
+
+    //to not let the player click on the cards while the timeout is active
+    const [isTimeoutActive, setIsTimeoutActive] = useState(false);
+
     // State for the currently flipped cards and the erased Cards
     const [flippedCards, setFlippedCards] = useState<number[]>([]);
     const [erasedCards, setErasedCards] = useState<number[]>([]);
 
     const handleCardClick = (index: number) => {
 
-        setFlippedCards(prevFlippedCards => [...prevFlippedCards, index]);
-
+        if (!isTimeoutActive) {
+            //manages when user clicks on same card many times
+            if (flippedCards.length == 2 || flippedCards[0] == index) return;
+            setFlippedCards(prevFlippedCards => [...prevFlippedCards, index]);
+        }
     };
 
     //to use the updated version of flippedCards
     useEffect(() => {
 
         if (flippedCards.length == 2) {
-            // Either way, reset the flipped cards after a short delay
-    
+
+            setIsTimeoutActive(true);
+            
 
             if (finalImgs[flippedCards[0]].name == finalImgs[flippedCards[1]].name) {
-
-                setErasedCards(prevErasedCards => [...prevErasedCards, flippedCards[0], flippedCards[1]]);
+                setTimeout(() => setErasedCards(prevErasedCards => [...prevErasedCards, flippedCards[0], flippedCards[1]]), 2000);
             }
-            setTimeout(() => setFlippedCards([]), 5000);
+
+            setTimeout(() => {
+                setFlippedCards([]);
+                setIsTimeoutActive(false);
+            }, 2000);
         }
 
     }, [flippedCards]);
@@ -86,12 +106,12 @@ const Game: React.FC = () => {
 
                 <a onClick={handleExit} className='text-white underline text-xl'> {"<"} Salir</a>
 
-                <h1 className={`title text-center ${isSmallScreen ? 'mt-6' : ''}`}>¡Turno de {playersList[playerTurn].playerName}!</h1>
+                <h1 className={`title text-center ${isSmallScreen ? 'mt-6' : ''}`}>¡Turno de {players[playerTurn].name}!</h1>
 
                 <div className={`flex ${isSmallScreen ? 'mt-6' : ''}`}>
-                    <Player color={bgColors[0]} name={playersList[0].playerName} number={0} />
+                    <Player color={bgColors[0]} name={players[0].name} number={players[0].score} />
                     <div className='flex flex-grow justify-end'>
-                        <Player color={bgColors[1]} name={playersList[1].playerName} number={0} />
+                        <Player color={bgColors[1]} name={players[1].name} number={players[1].score} />
                     </div>
                 </div>
 
@@ -118,12 +138,12 @@ const Game: React.FC = () => {
 
 
                 <div className={`flex ${isSmallScreen ? 'mt-10' : ''}`}>
-                    {playersList.length >= 3 && (
-                        <Player color={bgColors[2]} name={playersList[2].playerName} number={0} />
+                    {players.length >= 3 && (
+                        <Player color={bgColors[2]} name={players[2].name} number={players[2].score} />
                     )}
-                    {playersList.length >= 4 && (
+                    {players.length >= 4 && (
                         <div className='flex flex-grow justify-end'>
-                            <Player color={bgColors[3]} name={playersList[3].playerName} number={0} />
+                            <Player color={bgColors[3]} name={players[3].name} number={players[3].score} />
                         </div>
                     )}
 
