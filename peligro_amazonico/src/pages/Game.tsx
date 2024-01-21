@@ -19,9 +19,9 @@ const Game: React.FC = () => {
     // The inputList passed from the Players component
     const playersList = location.state && location.state.inputList ? location.state.inputList : [];
 
-    const finalImgs = location.state && location.state.finalImgs ? location.state.finalImgs : [];
+    const finalImgs = location.state && location.state.finalImgs ? location.state.finalImgs : []; //the final images to be displayed
 
-
+    const [playerTurn, setPlayerTurn] = useState(0); //the player turn
 
     // State for the currently flipped cards and the erased Cards
     const [flippedCards, setFlippedCards] = useState<number[]>([]);
@@ -44,7 +44,7 @@ const Game: React.FC = () => {
 
                 setErasedCards(prevErasedCards => [...prevErasedCards, flippedCards[0], flippedCards[1]]);
             }
-            setTimeout(() => setFlippedCards([]), 3000);
+            setTimeout(() => setFlippedCards([]), 5000);
         }
 
     }, [flippedCards]);
@@ -86,7 +86,7 @@ const Game: React.FC = () => {
 
                 <a onClick={handleExit} className='text-white underline text-xl'> {"<"} Salir</a>
 
-                <h1 className={`title text-center ${isSmallScreen ? 'mt-6' : ''}`}>¡Turno de Karim!</h1>
+                <h1 className={`title text-center ${isSmallScreen ? 'mt-6' : ''}`}>¡Turno de {playersList[playerTurn].playerName}!</h1>
 
                 <div className={`flex ${isSmallScreen ? 'mt-6' : ''}`}>
                     <Player color={bgColors[0]} name={playersList[0].playerName} number={0} />
