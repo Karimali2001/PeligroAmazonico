@@ -25,7 +25,7 @@ const Card: React.FC<CardProps> = ({ img, name, onClick, index, erasedCards, fli
     };
 
     return (
-        <div onClick={handleClick} className={`w-20 h-20 ${isFlipped ? '' : 'bg-black'}  ${isErased ? 'bg-transparent' : isFlipped ? '' : 'bg-black'}`} style={{ borderRadius: '10px' }}>
+        <div onClick={handleClick} className={`w-24 h-24 ${isFlipped ? '' : 'bg-black'}  ${isErased ? 'bg-transparent' : isFlipped ? '' : 'bg-black'}`} style={{ borderRadius: '10px' }}>
             {isFlipped && !isErased && <img src={img} alt="Imagen" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />}
         </div>
     );

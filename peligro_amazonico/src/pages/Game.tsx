@@ -31,7 +31,7 @@ const Game: React.FC = () => {
     const [players, setPlayers] = useState(
         playersList.map((player: any) => ({ name: player.playerName, score: 0 }))
     );
-    
+
 
     //to not let the player click on the cards while the timeout is active
     const [isTimeoutActive, setIsTimeoutActive] = useState(false);
@@ -55,10 +55,11 @@ const Game: React.FC = () => {
         if (flippedCards.length == 2) {
 
             setIsTimeoutActive(true);
-            
+
 
             if (finalImgs[flippedCards[0]].name == finalImgs[flippedCards[1]].name) {
                 setTimeout(() => setErasedCards(prevErasedCards => [...prevErasedCards, flippedCards[0], flippedCards[1]]), 2000);
+                
             }
 
             setTimeout(() => {
@@ -117,11 +118,11 @@ const Game: React.FC = () => {
 
 
 
-                <div className={`space-y-6 ${isSmallScreen ? 'mt-10' : ''}`}>
+                <div className={`space-y-1 ${isSmallScreen ? 'mt-10' : ''}`}>
 
                     {[...Array(Math.ceil(finalImgs.length / 4))].map((_, i) => (
 
-                        <div key={i} className='flex flex-grow space-x-6 justify-center' style={{ margin: '0 4' }}>
+                        <div key={i} className='flex flex-grow space-x-1 justify-center' style={{ margin: '0 4' }}>
 
                             {finalImgs.slice(i * 4, i * 4 + 4).map((img: any, j: number) => (
 
