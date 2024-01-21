@@ -8,6 +8,7 @@ import Player from '../components/Player';
 import Card from '../components/Card';
 
 import jaguar from '../assets/game-imgs/jaguar.svg';
+import {images as imgs} from './images';
 
 const Game: React.FC = () => {
 
@@ -18,10 +19,11 @@ const Game: React.FC = () => {
     // The inputList passed from the Players component
     const playersList = location.state && location.state.inputList ? location.state.inputList : [];
 
-    console.log(playersList);
+    console.log(imgs[9].path);
 
     const playersLength = playersList.length;
 
+    
 
 
     const handleExit = () => {
@@ -73,7 +75,7 @@ const Game: React.FC = () => {
                 <div className={`space-y-6 ${isSmallScreen ? 'mt-10' : ''}`}>
                     <div className='flex flex-grow space-x-6 justify-center'>
                         <Card img={jaguar} />
-                        <Card img={jaguar} />
+                        <Card img={imgs[9].path} />
                         <Card img={jaguar}/>
                         <Card img={jaguar} />
                     </div>
@@ -81,7 +83,7 @@ const Game: React.FC = () => {
                     <div className='flex flex-grow space-x-6 justify-center' style={{ margin: '0 4' }}>
                         <Card img={jaguar}/>
                         <Card img={jaguar}/>
-                        <Card img={jaguar}/>
+                        <Card img={imgs[0].path}/>
                         <Card img={jaguar}/>
                     </div>
                     <div className='flex flex-grow space-x-6 justify-center' style={{ margin: '0 4' }}>
