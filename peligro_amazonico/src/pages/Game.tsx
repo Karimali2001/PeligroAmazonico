@@ -6,6 +6,8 @@ import AppBar from '../components/AppBar';
 import "../App.css"
 import Player from '../components/Player';
 import Card from '../components/Card';
+import rightSound from '../assets/right.wav';
+import wrongSound from '../assets/wrong.wav';
 
 type Player = {
     name: string;
@@ -67,17 +69,29 @@ const Game: React.FC = () => {
 
 
             if (finalImgs[flippedCards[0]].name == finalImgs[flippedCards[1]].name) {
-                setTimeout(() => setErasedCards(prevErasedCards => [...prevErasedCards, flippedCards[0], flippedCards[1]]), 3000);
-                // Increase the score of the first player by 1
-                setPlayers((prevPlayers: any[]) =>
-                    prevPlayers.map((player: { score: number; }, index: number) =>
-                        index === playerTurn ? { ...player, score: player.score + 1 } : player
-                    )
-                );
+
+
+
+                setTimeout(() => {
+                    // Play the right sound
+                    new Audio(rightSound).play();
+                    // Increase the score of the first player by 1
+                    setPlayers((prevPlayers: any[]) =>
+                        prevPlayers.map((player: { score: number; }, index: number) =>
+                            index === playerTurn ? { ...player, score: player.score + 1 } : player
+                        )
+                    );
+                    setErasedCards(prevErasedCards => [...prevErasedCards, flippedCards[0], flippedCards[1]])
+
+                }, 3000);
+
 
             } else {
 
+
                 setTimeout(() => {
+                    // Play the wrong sound
+                    new Audio(wrongSound).play();
                     setPlayerTurn(playerTurn + 1);
                     //reset to 0 (first player)
                     if ((playerTurn + 1) >= players.length)
@@ -125,9 +139,9 @@ const Game: React.FC = () => {
             // The game is finished
             //order the players by score
             setTimeout(() => {
-                
+
                 const sortedPlayers = [...players].sort((a, b) => b.score - a.score);
-                
+
                 history.push('/top', { sortedPlayers });
                 window.location.reload();
             }, 3000);
