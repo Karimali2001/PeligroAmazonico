@@ -3,17 +3,15 @@ import logo from '../assets/Peligro.svg';
 
 const AppBar: React.FC = () => {
     return (
-        <div className="app-bar" style={{ backgroundColor: '#FBF6EE', width: '100%', height: '50px', display: 'flex', alignItems: 'center' }}>
-            <img src={logo} alt="logo" style={{marginLeft:'3%', width: '50px', height: '50px' }} />     
-            <a href="/" className="text-sm font-semibold leading-6 text-gray-900" style={{marginLeft:'10px', textDecoration: 'none', color: 'black', textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)' }}>
+        <div className="app-bar bg-[#FBF6EE] w-full h-12 flex items-center">
+            <img src={logo} alt="logo" className="ml-3 w-12 h-12" />     
+            <a href="/" className="text-sm font-semibold leading-6 text-gray-900 ml-2 no-underline text-black shadow-text" style={{textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)'}}>
                 Inicio
             </a>
 
-            <a href="/comojugar" className="text-sm font-semibold leading-6 text-gray-900" style={{marginLeft:'5%', textDecoration: 'none', color: 'black', textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)' }}>
+            <a href="/comojugar" className="text-sm font-semibold leading-6 text-gray-900 ml-5 no-underline text-black shadow-text" style={{textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)'}}>
                 Cómo Jugar
             </a>
-
-
         </div>
     );
 };
