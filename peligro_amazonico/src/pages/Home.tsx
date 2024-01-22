@@ -7,7 +7,7 @@ import logo from '../assets/Logo.svg';
 
 const Home: React.FC = () => {
     function onClick() {
-        window.location.href = '/jugadores';
+        window.location.href = '/menu';
     }
     return (
         <div className='bg-[#FFB534]' style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', overflow: 'auto' }}>

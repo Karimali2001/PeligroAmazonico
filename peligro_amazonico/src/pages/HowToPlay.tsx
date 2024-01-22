@@ -5,7 +5,7 @@ import "../App.css"
 const HowToPlay: React.FC = () => {
 
     function onClick() {
-        window.location.href = '/jugadores';
+        window.location.href = '/menu';
     }
     return (
 
