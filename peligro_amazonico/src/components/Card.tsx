@@ -19,7 +19,7 @@ const Card: React.FC<CardProps> = ({ img, name, onClick, index, erasedCards, fli
 
         
         if (!isFlipped) {
-            // window.responsiveVoice.speak(name); //it will speak the name of the specie
+            window.responsiveVoice.speak(name); //it will speak the name of the specie
         }
         onClick(name, index);
     };
