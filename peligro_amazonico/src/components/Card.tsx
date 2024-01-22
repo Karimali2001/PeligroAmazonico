@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 interface CardProps {
     img: string;
@@ -8,6 +8,12 @@ interface CardProps {
     erasedCards: number[];
     flippedCards: number[];
     isTimeoutActive: boolean;
+}
+
+declare global {
+    interface Window {
+        responsiveVoice: any;
+    }
 }
 
 const Card: React.FC<CardProps> = ({ img, name, onClick, index, erasedCards, flippedCards, isTimeoutActive }) => {
