@@ -10,6 +10,7 @@ import Card from '../components/Card';
 type Player = {
     name: string;
     score: number;
+    color: string;
 };
 
 const Game: React.FC = () => {
@@ -27,11 +28,7 @@ const Game: React.FC = () => {
 
     const [playerTurn, setPlayerTurn] = useState(0); //the player turn
 
-    // Declare players state here
-    const [players, setPlayers] = useState(
-        playersList.map((player: any) => ({ name: player.playerName, score: 0 }))
-    );
-
+    const bgColors = ["#34A2C5", "#34C554", "#EC68E7", "#7BDCFA"]; //background colors for each player
 
     //to not let the player click on the cards while the timeout is active
     const [isTimeoutActive, setIsTimeoutActive] = useState(false);
@@ -39,6 +36,18 @@ const Game: React.FC = () => {
     // State for the currently flipped cards and the erased Cards
     const [flippedCards, setFlippedCards] = useState<number[]>([]);
     const [erasedCards, setErasedCards] = useState<number[]>([]);
+
+    // Declare players state here
+    const [players, setPlayers] = useState(
+        playersList.map((player: any, index: number) => ({
+            name: player.playerName,
+            score: 0,
+            color: bgColors[index % bgColors.length]
+        }))
+    );
+
+
+
 
     const handleCardClick = (index: number) => {
 
@@ -73,7 +82,7 @@ const Game: React.FC = () => {
                     //reset to 0 (first player)
                     if ((playerTurn + 1) >= players.length)
                         setPlayerTurn(0);
-                    
+
                 }, 2000);
 
 
@@ -110,8 +119,20 @@ const Game: React.FC = () => {
         return () => window.removeEventListener('resize', checkScreenSize);
     }, []);
 
-
-    const bgColors = ["#34A2C5", "#34C554", "#EC68E7", "#7BDCFA"]; //background colors for each player
+    // Check if the game is finished
+    useEffect(() => {
+        if (erasedCards.length === 16) {
+            // The game is finished
+            //order the players by score
+            setTimeout(() => {
+                
+                const sortedPlayers = [...players].sort((a, b) => b.score - a.score);
+                
+                history.push('/top', { sortedPlayers });
+                window.location.reload();
+            }, 3000);
+        }
+    }, [erasedCards]);
 
 
     return (
@@ -124,7 +145,7 @@ const Game: React.FC = () => {
 
                 <a onClick={handleExit} className='text-white underline text-xl'> {"<"} Salir</a>
 
-                <h1 className={`title text-center ${isSmallScreen ? 'mt-6' : ''}`}>¡Turno de {players[playerTurn].name}!</h1>
+                <h1 className={`title text-center ${isSmallScreen ? 'mt-6' : ''}`}> {erasedCards.length === 16 ? '¡Juego Terminado!' : `¡Turno de ${players[playerTurn].name}!`}</h1>
 
                 <div className={`flex ${isSmallScreen ? 'mt-6' : ''}`}>
                     <Player color={bgColors[0]} name={players[0].name} number={players[0].score} />
@@ -143,7 +164,7 @@ const Game: React.FC = () => {
 
                             {finalImgs.slice(i * 4, i * 4 + 4).map((img: any, j: number) => (
 
-                                <Card key={j} img={img.path} name={img.name} index={i * 4 + j} erasedCards={erasedCards} flippedCards={flippedCards} onClick={() => handleCardClick(i * 4 + j)} />
+                                <Card key={j} img={img.path} name={img.name} index={i * 4 + j} erasedCards={erasedCards} flippedCards={flippedCards} onClick={() => handleCardClick(i * 4 + j)} isTimeoutActive={isTimeoutActive} />
 
                             ))}
 

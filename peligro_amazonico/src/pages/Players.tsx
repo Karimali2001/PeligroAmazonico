@@ -64,6 +64,14 @@ const Players: React.FC = () => {
 
     const handleClickPlay = () => {
 
+        // Check if the player names are empty
+        for (let i = 0; i < players; i++) {
+            if (inputList[i].playerName === "") {
+                alert("Ingrese el nombre de todos los jugadores");
+                return;
+            }
+        }
+
         // Pass the inputList as state to the '/juego' route
         history.push('/juego', { inputList, finalImgs });
         window.location.reload();

@@ -67,7 +67,7 @@ body {
   transition: border-color 0.25s;
   background-color: #65B741;
   color: white;
-  width: 25%;
+  width: 30%;
   height: 50px;
 }
 button:hover {

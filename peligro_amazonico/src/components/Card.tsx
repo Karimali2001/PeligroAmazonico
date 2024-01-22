@@ -7,9 +7,10 @@ interface CardProps {
     onClick: (name: string, index:number) => void; 
     erasedCards: number[];
     flippedCards: number[];
+    isTimeoutActive: boolean;
 }
 
-const Card: React.FC<CardProps> = ({ img, name, onClick, index, erasedCards, flippedCards }) => {
+const Card: React.FC<CardProps> = ({ img, name, onClick, index, erasedCards, flippedCards, isTimeoutActive }) => {
     const isErased = erasedCards.includes(index); //if the card is erased
     const isFlipped = flippedCards.includes(index); //if the card is flipped
 
@@ -18,7 +19,7 @@ const Card: React.FC<CardProps> = ({ img, name, onClick, index, erasedCards, fli
         if(isErased) return;
 
         
-        if (!isFlipped) {
+        if (!isFlipped && !isTimeoutActive) {
             window.responsiveVoice.speak(name); //it will speak the name of the specie
         }
         onClick(name, index);

@@ -6,6 +6,7 @@ import Home from './pages/Home'
 import HowToPlay from './pages/HowToPlay'
 import Players from './pages/Players'
 import Game from './pages/Game'
+import Top from './pages/Top'
 
 // Registrar rutas
 const router = createBrowserRouter([
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: '/juego',
     element: <Game />
+  },
+  {
+    path: '/top',
+    element: <Top />
   },
 ])
 
