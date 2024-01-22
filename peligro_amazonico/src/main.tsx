@@ -7,6 +7,8 @@ import HowToPlay from './pages/HowToPlay'
 import Players from './pages/Players'
 import Game from './pages/Game'
 import Top from './pages/Top'
+import Menu from './pages/Menu'
+import Multiplayers from './pages/Multiplayers'
 
 // Registrar rutas
 const router = createBrowserRouter([
@@ -29,6 +31,14 @@ const router = createBrowserRouter([
   {
     path: '/top',
     element: <Top />
+  },
+  {
+    path: '/multiplayer',
+    element: <Multiplayers />
+  },
+  {
+    path: '/menu',
+    element: <Menu />
   },
 ])
 

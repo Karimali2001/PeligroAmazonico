@@ -5,7 +5,7 @@ import "../App.css"
 import { FaPlus, FaMinus } from 'react-icons/fa';
 import { images as imgs } from './images';
 
-const Players: React.FC = () => {
+const Multiplayers: React.FC = () => {
     const [inputList, setInputList] = useState([{ playerName: "" }, { playerName: "" }]);
 
     const [players, setPlayers] = useState<number>(2); // number of players
@@ -28,8 +28,6 @@ const Players: React.FC = () => {
     let finalImgs = duplicatedImgs.sort(() => Math.random() - 0.5);
 
     
-
-
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
         const { name, value } = e.target;
         const list: any = [...inputList];
@@ -77,11 +75,6 @@ const Players: React.FC = () => {
         window.location.reload();
     }
 
-    function handleExit() {
-        history.push('/menu');
-        window.location.reload();
-    }
-
 
 
     return (
@@ -89,7 +82,6 @@ const Players: React.FC = () => {
 
             <AppBar />
             <div className='m-3 relative h-full'>
-            <a onClick={handleExit} className='text-white underline text-xl'> {"<"} Atrás</a>
 
                 <h1 className='title'>Ingrese los jugadores</h1>
 
@@ -142,5 +134,5 @@ const Players: React.FC = () => {
     );
 };
 
-export default Players;
+export default Multiplayers;
 
