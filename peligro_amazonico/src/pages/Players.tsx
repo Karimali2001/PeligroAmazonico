@@ -3,7 +3,45 @@ import { createBrowserHistory } from 'history';
 import AppBar from '../components/AppBar';
 import "../App.css"
 import { FaPlus, FaMinus } from 'react-icons/fa';
-import { images as imgs } from './images';
+import arania from '../assets/game-imgs/arania.svg';
+import escorpion from "../assets/game-imgs/escorpion.svg";
+import anaconda from "../assets/game-imgs/anaconda.svg";
+import caiman from "../assets/game-imgs/caiman.svg";
+import anguila from "../assets/game-imgs/anguila.svg";
+import vibora from "../assets/game-imgs/serpiente.svg";
+import pirania from "../assets/game-imgs/pirania.svg";
+import rana from "../assets/game-imgs/rana.svg";
+import chucho from "../assets/game-imgs/chucho.svg";
+import jaguar from "../assets/game-imgs/jaguar.svg";
+import ciempies from "../assets/game-imgs/ciempies.svg";
+import mosquito from "../assets/game-imgs/mosquito.svg";
+import candiru from "../assets/game-imgs/candiru.svg";
+import tarantula from "../assets/game-imgs/tarantula.svg";
+import trompeta from "../assets/game-imgs/trompeta.svg";
+import strychnos from "../assets/game-imgs/strychnos.svg";
+import curare from "../assets/game-imgs/curare.svg";
+import shuar from "../assets/game-imgs/shuar.svg";
+
+export const images = [
+    { name: "Araña bananera", path: arania },
+    { name: "Escorpiones Tityus", path: escorpion },
+    { name: "Anaconda verde", path: anaconda },
+    { name: "Caimán", path: caiman },
+    { name: "Anguila eléctrica", path: anguila },
+    { name: "Víbora barba amarilla", path: vibora },
+    { name: "Piraña amazónica", path: pirania },
+    { name: "Rana punta de flecha", path: rana },
+    { name: "Chuchos de agua dulce", path: chucho },
+    { name: "Jaguar", path: jaguar },
+    { name: "Ciempiés gigante amazónico", path: ciempies },
+    { name: "Mosquito", path: mosquito },
+    { name: "Candirú", path: candiru },
+    { name: "Tarántula Goliat", path: tarantula },
+    { name: "Trompeta de Angel", path: trompeta },
+    { name: "Strychnos", path: strychnos },
+    { name: "Curare", path: curare },
+    { name: "Tribu Shuar", path: shuar },
+];
 
 const Players: React.FC = () => {
     const [inputList, setInputList] = useState([{ playerName: "" }, { playerName: "" }]);
@@ -16,7 +54,7 @@ const Players: React.FC = () => {
     const history = createBrowserHistory(); //to pass elements between pages
 
     // Step 1: Shuffle the imgs array
-    let shuffledImgs = [...imgs].sort(() => Math.random() - 0.5);
+    let shuffledImgs = [...images].sort(() => Math.random() - 0.5);
 
     // Step 2: Slice the first 8 elements
     let slicedImgs = shuffledImgs.slice(0, 8);
