@@ -5,7 +5,16 @@ import { createBrowserHistory } from 'history';
 import AppBar from '../components/AppBar';
 import "../App.css"
 import Player from '../components/Player';
-import Card from '../components/Card';
+import CardGame from '../components/Card';
+import rightSound from '../assets/right.wav';
+import wrongSound from '../assets/wrong.wav';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { CardActionArea } from '@mui/material';
+import Button from '@mui/material/Button';
+
 
 type Player = {
     name: string;
@@ -26,9 +35,13 @@ const Game: React.FC = () => {
 
     const finalImgs = location.state && location.state.finalImgs ? location.state.finalImgs : []; //the final images to be displayed
 
+
     const [playerTurn, setPlayerTurn] = useState(0); //the player turn
 
     const bgColors = ["#34A2C5", "#34C554", "#EC68E7", "#7BDCFA"]; //background colors for each player
+
+    //to show matched cards at end
+    const [showCards, setShowCards] = useState<number[]>([]);
 
     //to not let the player click on the cards while the timeout is active
     const [isTimeoutActive, setIsTimeoutActive] = useState(false);
@@ -67,17 +80,30 @@ const Game: React.FC = () => {
 
 
             if (finalImgs[flippedCards[0]].name == finalImgs[flippedCards[1]].name) {
-                setTimeout(() => setErasedCards(prevErasedCards => [...prevErasedCards, flippedCards[0], flippedCards[1]]), 3000);
-                // Increase the score of the first player by 1
-                setPlayers((prevPlayers: any[]) =>
-                    prevPlayers.map((player: { score: number; }, index: number) =>
-                        index === playerTurn ? { ...player, score: player.score + 1 } : player
-                    )
-                );
+
+
+
+                setTimeout(() => {
+                    // Play the right sound
+                    new Audio(rightSound).play();
+                    // Increase the score of the first player by 1
+                    setPlayers((prevPlayers: any[]) =>
+                        prevPlayers.map((player: { score: number; }, index: number) =>
+                            index === playerTurn ? { ...player, score: player.score + 1 } : player
+                        )
+                    );
+                    setErasedCards(prevErasedCards => [...prevErasedCards, flippedCards[0], flippedCards[1]])
+                    setShowCards(prevShowCards => [...prevShowCards, flippedCards[0]])
+
+                }, 3000);
+
 
             } else {
 
+
                 setTimeout(() => {
+                    // Play the wrong sound
+                    new Audio(wrongSound).play();
                     setPlayerTurn(playerTurn + 1);
                     //reset to 0 (first player)
                     if ((playerTurn + 1) >= players.length)
@@ -125,9 +151,9 @@ const Game: React.FC = () => {
             // The game is finished
             //order the players by score
             setTimeout(() => {
-                
+
                 const sortedPlayers = [...players].sort((a, b) => b.score - a.score);
-                
+
                 history.push('/top', { sortedPlayers });
                 window.location.reload();
             }, 3000);
@@ -136,7 +162,7 @@ const Game: React.FC = () => {
 
 
     return (
-        <div className='bg-[#FFB534]' style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', overflow: 'auto' }}>
+        <div className='bg-[#FFB534]' style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', overflow: 'scroll' }}>
 
             <AppBar />
 
@@ -164,7 +190,7 @@ const Game: React.FC = () => {
 
                             {finalImgs.slice(i * 4, i * 4 + 4).map((img: any, j: number) => (
 
-                                <Card key={j} img={img.path} name={img.name} index={i * 4 + j} erasedCards={erasedCards} flippedCards={flippedCards} onClick={() => handleCardClick(i * 4 + j)} isTimeoutActive={isTimeoutActive} />
+                                <CardGame key={j} img={img.path} name={img.name} index={i * 4 + j} erasedCards={erasedCards} flippedCards={flippedCards} onClick={() => handleCardClick(i * 4 + j)} isTimeoutActive={isTimeoutActive} />
 
                             ))}
 
@@ -187,7 +213,34 @@ const Game: React.FC = () => {
                     )}
 
                 </div>
+                <hr className="border-t-8 border-black-2000" />
+                <div className='flex flex-wrap mt-[1%] space-x-2 justify-center space-y-1'>
 
+                    {showCards.map((index: number) => (
+                        <Button onClick={() => window.open(finalImgs[index].wikipedia, '_blank')}>
+                            <Card key={index} sx={{ maxWidth: 400, bgcolor: 'black', width: '200px', height: '340px' }}>
+                                <CardActionArea>
+                                    <CardMedia
+                                        component="img"
+                                        height="140"
+                                        image={finalImgs[index].path}
+                                        alt={finalImgs[index].name}
+                                    />
+                                    <CardContent>
+                                        <Typography gutterBottom variant="h5" component="div" color="white">
+                                            {finalImgs[index].name}
+                                        </Typography>
+                                        <Typography variant="body2" color="white">
+                                            {finalImgs[index].content}
+                                        </Typography>
+                                    </CardContent>
+                                </CardActionArea>
+                            </Card>
+                        </Button>
+                    ))}
+
+
+                </div>
             </div>
 
 

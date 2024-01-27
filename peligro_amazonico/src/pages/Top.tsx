@@ -10,13 +10,6 @@ type Player = {
     color: string;
 };
 
-const players: Player[] = [
-    { name: 'Player 1', score: 100, color: '#34A2C5' },
-    { name: 'Player 2', score: 200, color: '#34C554' },
-    { name: 'Player 3', score: 150, color: '#EC68E7' },
-    { name: 'Player 3', score: 150, color: '#7BDCFA' },
-];
-
 
 const Top: React.FC = () => {
 
