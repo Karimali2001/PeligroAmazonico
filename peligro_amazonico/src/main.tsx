@@ -10,6 +10,17 @@ import Top from './pages/Top'
 import Menu from './pages/Menu'
 import Multiplayers from './pages/Multiplayers'
 
+// if ('serviceWorker' in navigator) {
+//   window.addEventListener('load', function() {
+//     navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+//       console.log('ServiceWorker registration successful with scope: ', registration.scope);
+//     }, function(err) {
+//       console.log('ServiceWorker registration failed: ', err);
+//     });
+//   });
+// }
+
+
 // Registrar rutas
 const router = createBrowserRouter([
   {
