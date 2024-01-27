@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { createBrowserHistory } from 'history';
 import AppBar from '../components/AppBar';
+import { useLocation } from 'react-router-dom';
 import "../App.css"
-import { FaPlus, FaMinus } from 'react-icons/fa';
 import arania from '../assets/game-imgs/arania.svg';
 import escorpion from "../assets/game-imgs/escorpion.svg";
 import anaconda from "../assets/game-imgs/anaconda.svg";
@@ -44,9 +44,16 @@ export const imgs = [
 ];
 
 const Multiplayers: React.FC = () => {
-    const [inputList, setInputList] = useState([{ playerName: "" }, { playerName: "" }]);
 
     const [players, setPlayers] = useState<number>(2); // number of players
+
+    const location = useLocation();
+
+    const playerName = location.state && location.state.playerName ? location.state.playerName : {playerName: ""};
+
+    const groupCode = location.state && location.state.groupCode ? location.state.groupCode : {groupCode: ""};
+    
+    const [inputList, setInputList] = useState([{ playerName: playerName }, { playerName: "" }]);
 
 
     const bgColors = ["#34A2C5", "#34C554", "#EC68E7", "#7BDCFA"]; //background colors for each player
@@ -64,39 +71,6 @@ const Multiplayers: React.FC = () => {
 
     // Step 4: Shuffle the array of 16 elements
     let finalImgs = duplicatedImgs.sort(() => Math.random() - 0.5);
-
-    
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
-        const { name, value } = e.target;
-        const list: any = [...inputList];
-        list[index] = { ...list[index], [name]: value };
-        setInputList(list);
-    }
-
-
-    //adds a player
-    const handleAddClick = () => {
-        if (players >= 4) {
-            alert(" Se permiten máximo 4 jugadores");
-            return;
-        }
-        setPlayers(players + 1);
-        setInputList([...inputList, { playerName: "" }]);
-    }
-
-    //removes a player
-    const handleRemoveClick = () => {
-        if (players <= 2) {
-            alert("Se permiten mínimo 2 jugadores");
-            return;
-        }
-        setPlayers(players - 1);
-        const list: any = [...inputList];
-        list.pop();
-        setInputList(list);
-    }
-
-
 
     const handleClickPlay = () => {
 
@@ -127,15 +101,8 @@ const Multiplayers: React.FC = () => {
 
                     <h2 className='font-extrabold text-2xl'>Jugadores</h2>
 
-                    <div className='flex-grow flex justify-end space-x-2'>
-
-                        <button onClick={handleRemoveClick} className='rounded-full bg-[#C70000] text-white p-2 w-10 h-10 border-4 hover:border-[#C70000]'>
-                            <FaMinus />
-                        </button>
-
-                        <button onClick={handleAddClick} className='rounded-full bg-[#65B741] text-white p-2 w-10 h-10 border-4 hover:border-[#65B741]'>
-                            <FaPlus />
-                        </button>
+                    <div className='flex-grow flex justify-end'>
+                    <h2 className='font-extrabold text-2xl'>Código: {groupCode}</h2>
                     </div>
 
                 </div>
@@ -149,12 +116,11 @@ const Multiplayers: React.FC = () => {
                                 <input
                                     key={i}
                                     name='playerName'
-                                    placeholder={`Ingrese el nombre del jugador ${i + 1}`}
+                                    placeholder={`Esperando por jugador ${i + 1}`}
                                     style={{ backgroundColor: bgColors[i] }}
                                     className='rounded-full w-full border-2 border-gray-300 px-4 py-2 focus:outline-none focus:border-blue-500 text-white placeholder-white'
                                     value={x.playerName}
-                                    onChange={e => handleInputChange(e, i)}
-                                    readOnly={false}
+                                    readOnly={true}
                                 />
                             );
                         }

@@ -13,6 +13,10 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { FaRegWindowClose } from "react-icons/fa";
 
+import { io } from "socket.io-client";
+
+
+
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
         padding: theme.spacing(2),
@@ -33,6 +37,9 @@ const Menu: React.FC = () => {
 
 
     const [open, setOpen] = React.useState(false);
+
+    // Connect to the server
+    const socket = io("http://localhost:3000");
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -71,7 +78,15 @@ const Menu: React.FC = () => {
             return;
         }
 
-        history.push('/crear-grupo');
+        // Generate a random 4-digit code
+        const groupCode = Math.floor(1000 + Math.random() * 9000);
+
+        // Emit 'create group' event to the server
+        socket.emit('create group', { playerName, groupCode });
+
+
+        // Pass the player name and group code to the /crear-grupo route
+        history.push('/crear-grupo', { playerName, groupCode });
         window.location.reload();
     }
 

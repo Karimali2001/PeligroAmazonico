@@ -44,13 +44,13 @@ const router = createBrowserRouter([
     element: <Top />
   },
   {
-    path: '/multiplayer',
-    element: <Multiplayers />
-  },
-  {
     path: '/menu',
     element: <Menu />
   },
+  {
+    path: '/crear-grupo',
+    element: <Multiplayers />
+  }
 ])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
